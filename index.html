@@ -31,6 +31,18 @@
           width: 200px;
           height: 100px;
       }
+
+      model-viewer::part(viewer-controls) {
+            position: relative;
+        }
+
+        .watermark {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            opacity: 0.5; /* Adjust opacity as needed */
+        }
+
   </style>
 
 	<h1>AR Samples </h1>
@@ -60,6 +72,7 @@
       </span>
       
     </section>
+    <img class="watermark" src="Envidox Logo.png" alt="Watermark">
     
   </div>
   
