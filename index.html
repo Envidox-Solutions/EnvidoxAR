@@ -8,8 +8,6 @@
 
     <link rel="stylesheet" href="demo-styles.css">
     
-    
-    
     <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
 
     <style>
@@ -32,20 +30,16 @@
           height: 100px;
       }
 
-      model-viewer::part(viewer-controls) {
-            position: relative;
-        }
-
-        .watermark {
+      .watermark {
             position: absolute;
             bottom: 10px;
             left: 10px;
-            opacity: 0.5; /* Adjust opacity as needed */
+            opacity: 0.5;
         }
 
-  </style>
+    </style>
 
-	<h1>AR Samples </h1>
+	<h1>AR Samples</h1>
   </head> 
 <body>
 
@@ -53,11 +47,10 @@
     <img src="Envidox Logo.png" alt="Logo">
   </div>
 
-
-    <!-- All you need to put beautiful, interactive 3D content on your site: -->
-  <div id="card">
-    <!-- All you need to put beautiful, interactive 3D content on your site: -->
-    <model-viewer src="assets/astronaut.glb"
+  <!-- Astronaut Card -->
+  <div id="astronaut-card">
+    <model-viewer id="modelViewerAstronaut"
+                  src="assets/astronaut.glb"
                   ios-src="assets/astronaut.usdc"
                   poster=""
                   alt="A 3D model of an astronaut"
@@ -70,133 +63,34 @@
         <h1>Astronaut</h1>
         <span>By <a href="http://envidox-solutions.github.io/" target="_blank">Envidox_Solutions</a></span>
       </span>
-      
     </section>
     <img class="watermark" src="Envidox Logo.png" alt="Watermark">
-    
-  </div>
-  
-    <div id="card">
-    <!-- All you need to put beautiful, interactive 3D content on your site: -->
-    <model-viewer src="assets/Chair.glb"
-                  ios-src="assets/Chair.usdc"
-                  poster=""
-                  alt="A 3D model of Chair"
-                  shadow-intensity="1"
-                  camera-controls
-                  auto-rotate ar>
-    </model-viewer>
-    <section class="attribution">
-      <span>
-        <h1>Chair</h1>
-        <span>By <a href="http://envidox-solutions.github.io/" target="_blank">Envidox_Solutions</a></span>
-      </span>
-      
-    </section>
-    
-  </div>
-  
-  
-    <div id="card">
-    <!-- All you need to put beautiful, interactive 3D content on your site: -->
-    <model-viewer src="assets/GeoPlanter.glb"
-                  ios-src="assets/GeoPlanter.usdc"
-                  poster=""
-                  alt="A 3D model of GeoPlanter"
-                  shadow-intensity="1"
-                  camera-controls
-                  auto-rotate ar>
-    </model-viewer>
-    <section class="attribution">
-      <span>
-        <h1>GeoPlanter</h1>
-        <span>By <a href="http://envidox-solutions.github.io/" target="_blank">Envidox_Solutions</a></span>
-      </span>
-      
-    </section>
-    
-  </div>
-  
-  
-    <div id="card">
-    <!-- All you need to put beautiful, interactive 3D content on your site: -->
-    <model-viewer src="assets/Canoe_Body_low.glb"
-                  ios-src="assets/Canoe_Body_low.usdc"
-                  poster=""
-                  alt="A 3D model of a Canoe"
-                  shadow-intensity="1"
-                  camera-controls
-                  auto-rotate ar>
-    </model-viewer>
-    <section class="attribution">
-      <span>
-        <h1>Canoe</h1>
-        <span>By <a href="http://envidox-solutions.github.io/" target="_blank">Envidox_Solutions</a></span>
-      </span>
-      
-    </section>
-    
   </div>
 
+  <!-- ... Repeat the structure for other model viewer cards ... -->
 
-    <div id="card">
-    <!-- All you need to put beautiful, interactive 3D content on your site: -->
-    <model-viewer src="assets/NAANM.glb"
-                  ios-src="assets/NAANM.usdc"
-                  poster=""
-                  alt="A 3D space of an office"
-                  shadow-intensity="1"
-                  camera-controls
-                  auto-rotate ar>
-    </model-viewer>
-    <section class="attribution">
-      <span>
-        <h1>Office</h1>
-        <span>By <a href="http://envidox-solutions.github.io/" target="_blank">Envidox_Solutions</a></span>
-      </span>
-      
-    </section>
-    
-  </div>
-    <div id="card">
-    <!-- All you need to put beautiful, interactive 3D content on your site: -->
-    <model-viewer src="assets/houseplan (1).glb"
-                  ios-src="assets/houseplan.usdz"
-                  poster=""
-                  alt="A 3D space of an office"
-                  shadow-intensity="1"
-                  camera-controls
-                  auto-rotate ar>
-    </model-viewer>
-    <section class="attribution">
-      <span>
-        <h1>AR Houseplan</h1>
-        <span>By <a href="http://envidox-solutions.github.io/" target="_blank">Envidox_Solutions</a></span>
-      </span>
-      
-    </section>
-    
-  </div>
-  
-  
- 
-  
-  
- 
-  <script type="module"
-      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <script>
+    // Wait for the model viewer to be initialized
+    document.getElementById("modelViewerAstronaut").addEventListener("model-viewer-ready", () => {
+        const modelViewer = document.getElementById("modelViewerAstronaut");
+        const cameraElement = modelViewer.shadowRoot.querySelector('[part="camera"]');
+
+        // Listen for the camera-change event
+        modelViewer.addEventListener("camera-change", () => {
+            // Check if watermark is already added to prevent duplicates
+            if (!cameraElement.querySelector(".watermark")) {
+                // Create a new image element for the watermark
+                const watermark = document.createElement("img");
+                watermark.src = "Envidox Logo.png"; // Replace with your watermark image path
+                watermark.classList.add("watermark");
+
+                // Append the watermark to the camera view
+                cameraElement.appendChild(watermark);
+            }
+        });
+    });
   </script>
-
-<script>
-  window.addEventListener("load", function() {
-      const loadingScreen = document.getElementById("loading-screen");
-      const content = document.getElementById("content");
-      
-      setTimeout(function() {
-          loadingScreen.style.display = "none";
-          content.style.display = "block";
-      }, 2000); // Display the logo for 2 seconds
-  });
-</script>
 </body>
 </html>
