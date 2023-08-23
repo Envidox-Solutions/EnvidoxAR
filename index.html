@@ -31,66 +31,58 @@
       }
 
       .watermark {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            opacity: 0.5;
-        }
-
+          position: absolute;
+          bottom: 10px;
+          left: 10px;
+          opacity: 0.5;
+      }
     </style>
 
-	<h1>AR Samples</h1>
+    <h1>AR Samples </h1>
   </head> 
-<body>
+  <body>
+    <div id="loading-screen">
+      <img src="Envidox Logo.png" alt="Logo">
+    </div>
 
-  <div id="loading-screen">
-    <img src="Envidox Logo.png" alt="Logo">
-  </div>
+    <!-- All you need to put beautiful, interactive 3D content on your site: -->
+    <div id="card">
+      <model-viewer id="modelViewerAstronaut"
+                    src="assets/astronaut.glb"
+                    ios-src="assets/astronaut.usdc"
+                    poster=""
+                    alt="A 3D model of an astronaut"
+                    shadow-intensity="1"
+                    camera-controls
+                    auto-rotate ar>
+      </model-viewer>
+      <section class="attribution">
+        <span>
+          <h1>Astronaut</h1>
+          <span>By <a href="http://envidox-solutions.github.io/" target="_blank">Envidox_Solutions</a></span>
+        </span>
+      </section>
+      <img class="watermark" src="Envidox Logo.png" alt="Watermark">
+    </div>
+    
+    <script>
+      const loadingScreen = document.getElementById("loading-screen");
+      const modelViewerAstronaut = document.getElementById("modelViewerAstronaut");
 
-  <!-- Astronaut Card -->
-  <div id="astronaut-card">
-    <model-viewer id="modelViewerAstronaut"
-                  src="assets/astronaut.glb"
-                  ios-src="assets/astronaut.usdc"
-                  poster=""
-                  alt="A 3D model of an astronaut"
-                  shadow-intensity="1"
-                  camera-controls
-                  auto-rotate ar>
-    </model-viewer>
-    <section class="attribution">
-      <span>
-        <h1>Astronaut</h1>
-        <span>By <a href="http://envidox-solutions.github.io/" target="_blank">Envidox_Solutions</a></span>
-      </span>
-    </section>
-    <img class="watermark" src="Envidox Logo.png" alt="Watermark">
-  </div>
-
-  <!-- ... Repeat the structure for other model viewer cards ... -->
-
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-
-  <script>
-    // Wait for the model viewer to be initialized
-    document.getElementById("modelViewerAstronaut").addEventListener("model-viewer-ready", () => {
-        const modelViewer = document.getElementById("modelViewerAstronaut");
-        const cameraElement = modelViewer.shadowRoot.querySelector('[part="camera"]');
-
-        // Listen for the camera-change event
-        modelViewer.addEventListener("camera-change", () => {
-            // Check if watermark is already added to prevent duplicates
-            if (!cameraElement.querySelector(".watermark")) {
-                // Create a new image element for the watermark
-                const watermark = document.createElement("img");
-                watermark.src = "Envidox Logo.png"; // Replace with your watermark image path
-                watermark.classList.add("watermark");
-
-                // Append the watermark to the camera view
-                cameraElement.appendChild(watermark);
-            }
-        });
-    });
-  </script>
-</body>
+      modelViewerAstronaut.addEventListener("model-visibility", (event) => {
+          if (event.detail.visible) {
+              // Hide the loading screen after 2 seconds
+              setTimeout(() => {
+                  loadingScreen.style.display = "none";
+              }, 2000);
+          } else {
+              loadingScreen.style.display = "flex";
+          }
+      });
+    </script>
+  
+    <script type="module"
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+    </script>
+  </body>
 </html>
