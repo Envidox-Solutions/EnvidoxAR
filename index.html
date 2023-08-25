@@ -16,6 +16,9 @@
 	<h1>AR Samples </h1>
   </head> 
 <body>
+  <div class="loading-screen">
+    <img src="Envidox.png" alt="Logo">
+  </div>
     <!-- All you need to put beautiful, interactive 3D content on your site: -->
   <div id="card">
     <!-- All you need to put beautiful, interactive 3D content on your site: -->
@@ -148,6 +151,15 @@
   <!-- Loads <model-viewer> for modern browsers: -->
   <script type="module"
       src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    // Wait for the DOM to be fully loaded
+    setTimeout(function() {
+        document.querySelector(".loading-screen").style.display = "none";
+        document.querySelector(".main-content").style.display = "block";
+    }, 2000); // 2000 milliseconds = 2 seconds
+});
   </script>
 </body>
 </html>
