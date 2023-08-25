@@ -20,24 +20,25 @@
     <img src="Envidox.png" alt="Logo">
   </div>
     <!-- All you need to put beautiful, interactive 3D content on your site: -->
-  <div id="card">
-    <!-- All you need to put beautiful, interactive 3D content on your site: -->
-    <model-viewer src="assets/astronaut.glb"
-                  ios-src="assets/astronaut.usdc"
-                  poster=""
-                  alt="A 3D model of an astronaut"
-                  shadow-intensity="1"
-                  camera-controls
-                  auto-rotate ar>
-    </model-viewer>
-    <section class="attribution">
-      <span>
-        <h1>Astronaut</h1>
-        <span>By <a href="http://envidox-solutions.github.io/" target="_blank">Envidox_Solutions</a></span>
-      </span>
-      
-    </section>
-    
+    <div id="card">
+      <div class="loading-screen">
+          <div class="loader"></div>
+          <p>Loading 3D model...</p>
+      </div>
+      <model-viewer src="assets/astronaut.glb"
+                    ios-src="assets/astronaut.usdc"
+                    poster=""
+                    alt="A 3D model of an astronaut"
+                    shadow-intensity="1"
+                    camera-controls
+                    auto-rotate ar>
+      </model-viewer>
+      <section class="attribution">
+          <span>
+              <h1>Astronaut</h1>
+              <span>By <a href="http://envidox-solutions.github.io/" target="_blank">Envidox_Solutions</a></span>
+          </span>
+      </section>
   </div>
   
     <div id="card">
@@ -159,6 +160,10 @@
         document.querySelector(".loading-screen").style.display = "none";
         document.querySelector(".main-content").style.display = "block";
     }, 2000); // 2000 milliseconds = 2 seconds
+});
+
+document.addEventListener("model-viewer-ready", function() {
+    document.querySelector(".loading-screen").style.display = "none";
 });
   </script>
 </body>
